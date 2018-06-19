@@ -6,5 +6,8 @@ class Services {
   fetchComingSoonFilms () {
     return fly.get(`${baseUrl}/api/film/comingsoon`)
   }
+  fetchFilm (id) {
+    return fly.get(`${baseUrl}/api/film/id?id=${id}`)
+  }
 }
 export default new Services()
