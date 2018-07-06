@@ -8,7 +8,7 @@
             a(:href="'../film/main?id='+item.id")
               img(:src="item.postPic")
           .swiper__item--title {{ item.title }}
-          .swiper__item--pv {{ item.pv }}人想看
+          .swiper__item--pv {{ item.like }}人想看
           .swiper__item--release {{ item.releaseDate }}
     ul.comingsoonList
       li.item(v-for="(item, index) in comingSoonFilms", v-bind:key="item.id")
@@ -25,7 +25,7 @@
             p(v-for="(itemX, indexX) in item.releaseDate", v-bind:key="indexX") {{ itemX }}
         div.item__handle
           div.flex-width.like
-            span {{ item.pv }}
+            span {{ item.like }}
             |  人想看
           div
             button 想看
@@ -47,7 +47,7 @@
     async created () {
       this.comingSoonFilms = await this.$store.dispatch('fetchComingSoonFilms')
       this.comingSoonFilms.forEach(item => {
-        if (item.pv > 100) {
+        if (item.like > 10000) {
           const str = item.releaseDate.reduce((prev, current) => {
             return prev + current
           })

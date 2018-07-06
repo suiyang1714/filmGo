@@ -9,8 +9,8 @@
             img(:src="film.postPic")
         .film--right
           .film--right--title {{ film.title }}
-          .film--right--aka {{ film.aka }}
-          .film--right--pv {{ film.pv }}
+          .film--right--aka {{ film.aka[film.aka.length-1] }}
+          .film--right--pv {{ film.like }}人喜欢看
           .film--right--genres
             text(v-for="(itemI, indexI) in film.genres", v-bind:key="indexI") {{ itemI.name }}
           .film--right--release
@@ -23,12 +23,12 @@
         .item(v-for="(item, index) in film.directors", v-bind:key="item.id")
           dl(v-if="item.id")
             dt
-              img(:src="item.avatars.small")
+              img(:src="item.avatars")
             dd {{ item.name }}
         .item(v-for="(item, index) in film.casts", v-bind:key="item.id")
           dl
             dt
-              img(:src="item.avatars.small")
+              img(:src="item.avatars")
             dd {{ item.name }}
       <!--.film&#45;&#45;trailer-->
         <!--.item(v-for="(item, index) in film.trailerArray", v-bind:key="item.id")-->
