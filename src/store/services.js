@@ -9,5 +9,8 @@ class Services {
   fetchFilm (id) {
     return fly.get(`${baseUrl}/api/film/id?id=${id}`)
   }
+  fetchFilmTrailer ({filmId}) {
+    return fly.get(`${baseUrl}/api/film/poster/id?filmId=${filmId}`)
+  }
 }
 export default new Services()

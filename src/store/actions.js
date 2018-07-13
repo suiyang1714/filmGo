@@ -10,5 +10,10 @@ export default {
     const res = await Services.fetchFilm(id)
     state.film = res.data.data
     return res.data.data
+  },
+  async fetchFilmTrailer ({state}, id) {
+    const res = await Services.fetchFilmTrailer(id)
+    state.filmTrailer = res.data.data
+    return res.data.data
   }
 }

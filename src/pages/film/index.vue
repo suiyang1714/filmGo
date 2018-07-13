@@ -6,10 +6,11 @@
       .film
         .film--left
           .film--left--poster
-            img(:src="service + film.postPic")
+            a(:href="'../trailer/index?trailerId=' + film.trailerArray[0].trailerId + '&filmId=' + film.id")
+              img(:src="service + film.postPic")
         .film--right
           .film--right--title {{ film.title }}
-          .film--right--aka {{ film.aka[film.aka.length-1] }}
+          .film--right--aka {{ film.aka[film.aka.length - 1] }}
           .film--right--pv {{ film.like }}人喜欢看
           .film--right--genres
             text(v-for="(itemI, indexI) in film.genres", v-bind:key="indexI") {{ itemI.name }}
@@ -20,6 +21,7 @@
       .film--intro
         p {{ film.summary }}
       .film--casts
+        .Film--title 演职人员
         .item(v-for="(item, index) in film.directors", v-bind:key="item.id")
           dl(v-if="item.id")
             dt
@@ -31,12 +33,22 @@
               img(:src="service + item.avatars")
             dd {{ item.name }}
       .film--trailer
+        .Film--title 视频
         .item(v-for="(item, index) in film.trailerArray", v-bind:key="item.id")
-          a(href="'../trailer/main?id='+item.id")
+          a(:href="'../trailer/main?trailerId=' + item.trailerId + '&filmId=' + film.id")
             dl()
               dt
                 img(:src="service + item.trailerPoster")
-              dd {{ item.trailerTitle }}
+              dd.title {{ item.trailerTitle }}
+              dd {{ item.trailerDate }}
+      .film--stagePhoto
+        .Film--title 剧照
+        .item(v-for="(item, index) in film.trailerArray", v-bind:key="item.id")
+          a(:href="'../trailer/main?trailerId=' + item.trailerId + '&filmId=' + film.id")
+            dl()
+              dt
+                img(:src="service + item.trailerPoster")
+              dd.title {{ item.trailerTitle }}
               dd {{ item.trailerDate }}
 </template>
 
@@ -158,6 +170,7 @@
       white-space: nowrap;
       overflow-x: scroll;
       margin-bottom: 20rpx;
+      display:flex;
       .item {
         display: inline-block;
         width: 135rpx;
@@ -170,6 +183,7 @@
             }
           }
           dd {
+            white-space: normal;
             text-align: center;
             font-size: 24rpx;
           }
@@ -184,6 +198,7 @@
       white-space: nowrap;
       overflow-x: scroll;
       margin-bottom: 20rpx;
+      display:flex;
       .item {
         display: inline-block;
         width: 270rpx;
@@ -199,6 +214,14 @@
             white-space: normal;
             text-align: center;
             font-size: 24rpx;
+            &.title {
+              height: 64rpx;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+            }
           }
         }
       }
