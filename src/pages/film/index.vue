@@ -1,12 +1,12 @@
 <template lang="pug">
   .container
     .film__top
-      .movie-background(:style="'background-image: url('+ film.postPic +')'")
+      .movie-background(:style="'background-image: url('+ service +film.postPic +')'")
       .movie-filter
       .film
         .film--left
           .film--left--poster
-            img(:src="film.postPic")
+            img(:src="service + film.postPic")
         .film--right
           .film--right--title {{ film.title }}
           .film--right--aka {{ film.aka[film.aka.length-1] }}
@@ -23,21 +23,21 @@
         .item(v-for="(item, index) in film.directors", v-bind:key="item.id")
           dl(v-if="item.id")
             dt
-              img(:src="item.avatars")
+              img(:src="service + item.avatars")
             dd {{ item.name }}
         .item(v-for="(item, index) in film.casts", v-bind:key="item.id")
           dl
             dt
-              img(:src="item.avatars")
+              img(:src="service + item.avatars")
             dd {{ item.name }}
-      <!--.film&#45;&#45;trailer-->
-        <!--.item(v-for="(item, index) in film.trailerArray", v-bind:key="item.id")-->
-          <!--a(href="'../trailer/main?id='+item.id")-->
-            <!--dl()-->
-              <!--dt-->
-                <!--img(:src="item.trailerMP4")-->
-              <!--dd {{ item.trailerTitle }}-->
-              <!--dd {{ item.trailerDate }}-->
+      .film--trailer
+        .item(v-for="(item, index) in film.trailerArray", v-bind:key="item.id")
+          a(href="'../trailer/main?id='+item.id")
+            dl()
+              dt
+                img(:src="service + item.trailerPoster")
+              dd {{ item.trailerTitle }}
+              dd {{ item.trailerDate }}
 </template>
 
 <script>
@@ -46,6 +46,7 @@
   export default {
     data () {
       return {
+        service: 'https://filmgoqiniu.adityasui.com/',
         film: []
       }
     },
@@ -185,16 +186,17 @@
       margin-bottom: 20rpx;
       .item {
         display: inline-block;
-        width: 135rpx;
+        width: 270rpx;
         margin-right: 20rpx;
         dl {
           dt {
             img {
-              width: 135rpx;
+              width: 270rpx;
               height: 192rpx;
             }
           }
           dd {
+            white-space: normal;
             text-align: center;
             font-size: 24rpx;
           }

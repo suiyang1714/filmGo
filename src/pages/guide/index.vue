@@ -6,7 +6,7 @@
         .swiper__item(v-for="(item, index) in popularFilms", v-bind:key="item.id")
           .swiper__item--poster
             a(:href="'../film/main?id='+item.id")
-              img(:src="item.postPic")
+              img(:src="service + item.postPic")
           .swiper__item--title {{ item.title }}
           .swiper__item--pv {{ item.like }}人想看
           .swiper__item--release {{ item.releaseDate }}
@@ -14,7 +14,7 @@
       li.item(v-for="(item, index) in comingSoonFilms", v-bind:key="item.id")
         div.item__moviePoster
           a(:href="'../film/main?id='+item.id")
-            img(:src="item.postPic")
+            img(:src="service + item.postPic")
         div.item__movieIntro
           h1.item__movieIntro--title {{ item.title }}
           div.item__movieIntro--genres
@@ -41,7 +41,8 @@
       return {
         comingSoonFilms: [],
         popularFilms: [],
-        scrollView: true
+        scrollView: true,
+        service: 'https://filmgoqiniu.adityasui.com/'
       }
     },
     async created () {
