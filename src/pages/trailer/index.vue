@@ -3,10 +3,8 @@
     .film__trailer
       .film__trailer--video
         video(:src="service + filmTrailer.trailerMP4", :poster="service + filmTrailer.trailerPoster")
-        <!--.player-->
-          <!--img(:src="service + player-big")-->
       .film__trailer--intro
-        .film--title {{ film.title }}
+        .film--title {{ filmTrailer.trailerTitle }}
         .film--like
           text {{ film.like }}
             | 人喜欢看
@@ -15,12 +13,12 @@
       .film__trailer--list
         .item(v-for="item in filmTrailerList", v-bind:key="item.trailerId")
           .item--left
-            a(:href="'./main?filmId=' + filmTrailer.id + '&trailerId=' + item.trailerId")
+            a(:href="'./main?trailerId=' + item.trailerId + '&filmId=' + film.id")
               img(:src="service + item.trailerPoster")
           .item--right
             .item--title {{ item.trailerTitle }}
             .item--date {{ item.trailerDate }}
-            .item--pv {{ item.trailerPv }}
+            <!--.item&#45;&#45;pv {{ item.trailerPv }}-->
 
 </template>
 
@@ -39,11 +37,11 @@
         film: null
       }
     },
-    async beforeMount () {
-      this.filmTrailerList = []
+    async onShow  () {
       const filmId = this.$root.$mp.query.filmId
       const trailerId = this.$root.$mp.query.trailerId
       this.film = await this.$store.dispatch('fetchFilmTrailer', {filmId})
+      this.filmTrailerList = []
       this.film.trailerArray.forEach(item => {
         if (item.trailerId === trailerId) {
           this.filmTrailer = item
@@ -51,6 +49,8 @@
           this.filmTrailerList.push(item)
         }
       })
+    },
+    async beforeMount () {
     },
     methods: {
 

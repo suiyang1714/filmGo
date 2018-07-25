@@ -1,6 +1,6 @@
 <template lang="pug">
   .container
-    h1 近期最受欢迎
+    h1.Film--title(v-if="popularFilms.length > 0") 近期最受欢迎
     .swiper__block
       .flex
         .swiper__item(v-for="(item, index) in popularFilms", v-bind:key="item.id")
@@ -10,6 +10,7 @@
           .swiper__item--title {{ item.title }}
           .swiper__item--pv {{ item.like }}人想看
           .swiper__item--release {{ item.releaseDate }}
+    h1.Film--title() 即将上映电影
     ul.comingsoonList
       li.item(v-for="(item, index) in comingSoonFilms", v-bind:key="item.id")
         div.item__moviePoster
@@ -68,9 +69,17 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .comingsoonList {
     padding: 0 20rpx;
+  }
+  .Film--title {
+    background-color: #fff;
+    padding: 20rpx;
+    /*border-bottom: 1px solid #7f828b;*/
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20rpx;
   }
   .item {
     display: flex;
